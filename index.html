@@ -32,8 +32,7 @@
 
     <div class="movie_box">
 
-        <video id="player" width="75%" height="50%" poster="sample/image.jpg" src="sample/movie.mp4"
-            oncontextmenu="return false;"></video>
+        <video id="player" width="75%" height="50%" oncontextmenu="return false;"></video>
 
         <div class="grid_box">
 
@@ -53,6 +52,13 @@
     </div>
 
     <script>
+
+        var movieName = location.href.split("?")[1];
+        movieName = `${movieName}/movie`;
+        if (movieName) {
+            document.getElementById('player').poster = `${movieName}.jpg`;
+            document.getElementById('player').src = `${movieName}.mp4`;
+        }
 
         var play_flag = false;
 

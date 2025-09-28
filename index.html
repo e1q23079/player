@@ -11,33 +11,46 @@
             color: aliceblue;
         }
 
-        .met {
-            width: 50%;
+        .movie_box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .vol_c {
-            width: 5%;
+        .grid_box {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto 1fr auto;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
-    <!--//controlを入れないことで，コントロールを表示しない-->
-    <center><video id="player" width="75%" height="50%" poster="sample/image.jpg" src="sample/movie.mp4"
-            oncontextmenu="return false;"></video></center>
-    <center>
-        <button id="ply" onclick="play_stop();">再生</button>
-        <button id="back" onclick="movie_modoru();">戻る</button>
-        <button id="go" onclick="movie_susumu();">進む</button>
-        <button id="v_mute_b" onclick="mute();">🔊</button>
-        <span id="timer">??:??/??:??</span>
-        音量
-        <input type="range" class="vol_c" id="vol" min="0" max="1" step="0.1" value="1" onchange="vol_henkou();"
-            aria-label="volume" />
-        <input type="range" class="met" id="meter" min="0" value="0" step="0.1" onchange="play_henkou();"
-            aria-label="slider" />
-        <button id="fullSc_b" onclick="full_screen_che();">フル</button>
-    </center>
+
+    <div class="movie_box">
+
+        <video id="player" width="75%" height="50%" poster="sample/image.jpg" src="sample/movie.mp4"
+            oncontextmenu="return false;"></video>
+
+        <div class="grid_box">
+
+            <button id="ply" onclick="play_stop();">再生</button>
+            <button id="back" onclick="movie_modoru();">戻る</button>
+            <button id="go" onclick="movie_susumu();">進む</button>
+            <button id="v_mute_b" onclick="mute();">🔊</button>
+            <span id="timer">??:??/??:??</span>
+            音量
+            <input type="range" class="vol_c" id="vol" min="0" max="1" step="0.1" value="1" onchange="vol_henkou();"
+                aria-label="volume" />
+            <input type="range" class="met" id="meter" min="0" value="0" step="0.1" onchange="play_henkou();"
+                aria-label="slider" />
+            <button id="fullSc_b" onclick="full_screen_che();">フル</button>
+        </div>
+
+    </div>
 
     <script>
 
@@ -46,7 +59,6 @@
         var mute_flag = false;
 
         var full_screen_flag = false;
-
 
         function now_time() {
             let now_hun = parseInt(document.getElementById('player').currentTime / 60);
@@ -105,8 +117,6 @@
             document.getElementById('player').currentTime = document.getElementById('meter').value;
         }
 
-
-
         function Play_ti() {
             document.getElementById('meter').max = document.getElementById('player').duration;
             document.getElementById('meter').value = document.getElementById('player').currentTime;
@@ -114,9 +124,7 @@
 
         setInterval(Play_ti, 500);
 
-
         var last_Vol;
-
 
         function movie_play() {
             document.getElementById('player').play();
@@ -183,7 +191,6 @@
                 }
             }
         );
-
 
         addEventListener("fullscreenchange", (event) => {
             if (document.fullscreenElement == null) {
